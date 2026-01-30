@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class LevelTimer : MonoBehaviour
+public class UI_Timer : MonoBehaviour
 {
     [SerializeField] private float _timeRemain = 120f;
     [SerializeField] private TMP_Text _timerText;
@@ -15,7 +15,7 @@ public class LevelTimer : MonoBehaviour
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
 
-        _timerText.text = string.Format("{0:00}:{1:00}" , minutes , seconds);
+        _timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
         if (time <= 10f)
         {
@@ -51,3 +51,4 @@ public class LevelTimer : MonoBehaviour
         }
     }
 }
+

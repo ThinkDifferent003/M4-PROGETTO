@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class CoinsManager : MonoBehaviour
+public class UI_CoinManager : MonoBehaviour
 {
     [SerializeField] private int _totalCoins = 5;
     [SerializeField] private TMP_Text _coinText;

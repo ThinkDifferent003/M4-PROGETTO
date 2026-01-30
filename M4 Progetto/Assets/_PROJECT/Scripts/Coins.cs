@@ -5,7 +5,7 @@ using UnityEngine;
 public class Coins : MonoBehaviour
 {
     [SerializeField] private int _coins = 1;
-    [SerializeField] private CoinsManager _coinsManager;
+    [SerializeField] private UI_CoinManager _coinsManager;
 
     private void OnTriggerEnter(Collider other)
     {

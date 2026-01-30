@@ -8,7 +8,7 @@ public class Win : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            FindAnyObjectByType<LevelTimer>().BlockTimer();
+            FindAnyObjectByType<UI_Timer>().BlockTimer();
             Debug.Log("Livello Completato");
         }
     }

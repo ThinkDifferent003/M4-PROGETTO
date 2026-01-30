@@ -30,9 +30,4 @@ public class CameraOrbital : MonoBehaviour
         transform.position = _player.position;
     }
 
-
-    void Update()
-    {
-        
-    }
 }
