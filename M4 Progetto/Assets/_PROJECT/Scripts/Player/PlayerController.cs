@@ -19,7 +19,17 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        ICollect obj = other.GetComponent<ICollect>();
+
+        if (obj != null)
+        {
+            obj.Collect();
+        }
+    }
+
+
     void Update()
     {
         float moveX = Input.GetAxis("Horizontal");

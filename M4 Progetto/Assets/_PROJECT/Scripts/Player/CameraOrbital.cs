@@ -19,6 +19,8 @@ public class CameraOrbital : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (Time.timeScale == 0f) return;
+
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
 

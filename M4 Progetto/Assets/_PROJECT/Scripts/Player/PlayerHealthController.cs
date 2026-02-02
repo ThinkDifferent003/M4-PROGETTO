@@ -33,6 +33,17 @@ public class PlayerHealthController : MonoBehaviour
         }
     }
 
+    public void AddHP(int amount)
+    {
+        _currentHealth += amount;
+        if (_currentHealth > _maxHealth)
+        {
+            _currentHealth = _maxHealth;
+        }
+
+        _uiHealthBar.UpdateUI( _currentHealth);
+    }
+
     public void InstantDie()
     {
         TakeDamage(_maxHealth);
@@ -41,9 +52,6 @@ public class PlayerHealthController : MonoBehaviour
     private void Die()
     {
         _gameOverPanel.SetActive(true);
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     private void Update()

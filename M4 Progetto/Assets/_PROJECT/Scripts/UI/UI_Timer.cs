@@ -7,11 +7,17 @@ public class UI_Timer : MonoBehaviour
 {
     [SerializeField] private float _timeRemain = 120f;
     [SerializeField] private TMP_Text _timerText;
+    [SerializeField] private UI_GameOver _gameOverScript;
 
     private bool _isTimerActive = true;
 
     private void DisplayText(float time)
     {
+        if (time < 0)
+        {
+            time = 0;
+        }
+
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
 
@@ -23,9 +29,19 @@ public class UI_Timer : MonoBehaviour
         }
     }
 
+    public void AddTime(float time)
+    {
+        _timeRemain += time;
+
+        DisplayText(_timeRemain);
+    }    
+
     private void GameOver()
     {
-
+        if (_gameOverScript  != null)
+        {
+            _gameOverScript.GameOver();
+        }
     }
 
     public void BlockTimer()
@@ -45,6 +61,7 @@ public class UI_Timer : MonoBehaviour
             {
                 Debug.Log("Tempo Scaduto");
                 _timeRemain = 0;
+                DisplayText(0);
                 _isTimerActive = false;
                 GameOver();
             }
