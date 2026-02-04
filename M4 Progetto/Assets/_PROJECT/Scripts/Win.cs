@@ -10,6 +10,8 @@ public class Win : MonoBehaviour
         {
             FindAnyObjectByType<UI_Timer>().BlockTimer();
             Debug.Log("Livello Completato");
+
+            FindAnyObjectByType<UI_Victory>().Victory();
         }
     }
 }
