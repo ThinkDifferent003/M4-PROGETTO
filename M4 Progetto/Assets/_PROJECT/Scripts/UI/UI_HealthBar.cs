@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UI_HealthBar : MonoBehaviour
 {
+    //IMAGE
     [SerializeField] private Image[] _healthPoint;
 
     public void UpdateUI(int currentHealth)
@@ -13,11 +14,11 @@ public class UI_HealthBar : MonoBehaviour
         {
             if (i < currentHealth)
             {
-                _healthPoint[i].enabled = true;
+                _healthPoint[i].gameObject.SetActive(true);
             }
             else
             {
-                _healthPoint[i].enabled = false;
+                _healthPoint[i].gameObject.SetActive(false);
             }
         }
     }

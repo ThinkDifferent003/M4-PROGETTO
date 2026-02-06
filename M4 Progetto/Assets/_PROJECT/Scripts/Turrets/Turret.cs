@@ -3,45 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class Turret : MonoBehaviour
+public abstract class Turret : MonoBehaviour
 {
+    //COMPONENTS
     [SerializeField] protected Transform _firePoint;
     [SerializeField] protected Transform _rotateHead;
     [SerializeField] protected GameObject _bulletPrefab;
+    //STATS
     [SerializeField] protected float _fireRate = 1f;
     [SerializeField] protected float _rotationSpeed = 5f;
-    [SerializeField] protected Transform _playerTransform;
+    //PRIVATE
+    protected Transform _playerTransform;
     protected bool _isPlayerZone = false;
     protected float _nextFireTime = 0f;
 
     private void Start()
     {
-        _playerTransform = GameObject.FindWithTag("Player").transform;
-    }
-    protected virtual void Shoot()
-    {
-        Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
-    }
-
-    
-    protected virtual void Aim()
-    {
-
-    }
-
-    protected virtual void Routine()
-    {
-
-    }
-
-    protected virtual void CheckPlayer()
-    {
-
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            _playerTransform = player.transform;
+        }
     }
     
     protected virtual void Update()
     {
-         CheckPlayer();
+        if (_playerTransform == null) return;
+
+        CheckPlayer();
 
         if (_isPlayerZone)
         {
@@ -57,6 +46,39 @@ public class Turret : MonoBehaviour
             Routine();
         }
      }   
+    
+    protected virtual void Aim()
+    {
+
+    }
+
+    protected virtual void CheckPlayer()
+    {
+
+    }
+    
+     protected virtual void Shoot()
+    {
+        if (_bulletPrefab != null && _firePoint != null)
+        {
+            Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
+        }
+    }
+    
+    
+    protected virtual void Routine()
+    {
+
+    }
+   
 }
+    
+    
+    
+
+    
+    
+    
+
         
    

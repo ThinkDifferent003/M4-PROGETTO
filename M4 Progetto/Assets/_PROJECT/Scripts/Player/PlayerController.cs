@@ -4,31 +4,34 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-    Rigidbody _rb;
-    Vector2 _movement;
-
+    //MOVEMENT
     [SerializeField] private float _jump;
-    private bool _isGrounded;
+    [SerializeField] private float _speed;
+    //GROUND CHECK
     [SerializeField] Transform _groundCheck;
     [SerializeField] private float _groundDistance = 0.5f;
     [SerializeField] LayerMask _groundMask;
+    //PRIVATE
+    private Vector2 _movement;
+    private bool _isGrounded;
+    private Rigidbody _rb;
+    private Camera _camera;
     
-    void Start()
+    
+    void Awake()
     {
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        ICollect obj = other.GetComponent<ICollect>();
-
-        if (obj != null)
+        _camera = Camera.main;
+        if (_camera == null)
         {
-            obj.Collect();
+            _camera = FindAnyObjectByType<Camera>();
         }
+        
     }
-
 
     void Update()
     {
@@ -37,6 +40,7 @@ public class PlayerController : MonoBehaviour
         _movement = new Vector2(moveX, moveY);
 
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
+       
         if (Input.GetButtonDown("Jump")  && _isGrounded)
         {
             _rb.AddForce(Vector3.up * _jump, ForceMode.Impulse);
@@ -45,8 +49,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 forward = Camera.main.transform.forward;
-        Vector3 right = Camera.main.transform.right;
+        MovePlayer();
+    }
+
+    private void MovePlayer()
+    {
+        Vector3 forward = _camera.transform.forward;
+        Vector3 right = _camera.transform.right;
 
         forward.y = 0;
         right.y = 0;
@@ -57,7 +66,17 @@ public class PlayerController : MonoBehaviour
 
 
         _rb.MovePosition(_rb.position + moveDirection * (_speed * Time.fixedDeltaTime));
-
-        
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        ICollect obj = other.GetComponent<ICollect>();
+
+        if (obj != null)
+        {
+            obj.Collect();
+        }
+    }
+
+    
 }

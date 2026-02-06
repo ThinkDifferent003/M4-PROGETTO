@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class RaycastTurret : Turret
 {
+    //RAY SETT
     [SerializeField] private float _distanceRay = 20f;
     [SerializeField] private LayerMask _obstacle;
+    //ROUTINE SETT
     [SerializeField] private float _angleDegree = 45f;
     [SerializeField] private Light _turretLight;
     
@@ -16,23 +18,17 @@ public class RaycastTurret : Turret
 
         if (Physics.Raycast(transform.position, _firePoint.forward, out hit, _distanceRay, _obstacle))
         {
-            if (hit.collider.CompareTag("Player"))
-              {
-                _isPlayerZone = hit.collider.CompareTag("Player");
-              }
-            else
-              {
-                _isPlayerZone = false;
-              }
-        }
+           _isPlayerZone = hit.collider.CompareTag("Player"); 
+        }      
         else
         {
             _isPlayerZone = false;
         }
 
-        UpdateLight();
-    }
-
+        UpdateLight();   
+              
+    }        
+              
     private void UpdateLight()
     {
         if (_turretLight == null) return;
@@ -44,7 +40,7 @@ public class RaycastTurret : Turret
         float angle = Mathf.Lerp(-_angleDegree, _angleDegree, Mathf.PingPong(Time.time * _rotationSpeed,1));
         _rotateHead.localRotation = Quaternion.Euler(0, angle, 0);
     }
-
+         
     private void LockTarget(Vector3 target)
     {
         Vector3 dir = target - _rotateHead.position;
@@ -54,11 +50,11 @@ public class RaycastTurret : Turret
             Quaternion targetRotation = Quaternion.LookRotation(dir);
             _rotateHead.rotation = Quaternion.Slerp(_rotateHead.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
         }
-    }
-
+    }          
+      
     protected override void Aim()
     {
-        if (_playerTransform == null)
+        if (_playerTransform != null)
         {
             Vector3 targetPoint = _playerTransform.position + Vector3.up * 0.8f;
             LockTarget(targetPoint);
@@ -69,5 +65,11 @@ public class RaycastTurret : Turret
     {
         Gizmos.color = _isPlayerZone? Color.red : Color.green;
         Gizmos.DrawRay(_firePoint.position,_firePoint.forward * _distanceRay);
-    }
+    }   
+   
+
+    
+    
+
+    
 }

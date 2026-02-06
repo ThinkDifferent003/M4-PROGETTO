@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class UI_CoinManager : MonoBehaviour
 {
+    //SETT
     [SerializeField] private int _totalCoins = 5;
     [SerializeField] private TMP_Text _coinText;
-    [SerializeField] private GameObject _doorPrefab;
-
+    //DOOR
+    [SerializeField] private GameObject _door;
+    //PRIVATE
     private int _currentCoins = 0;
     void Start()
     {
@@ -36,7 +38,7 @@ public class UI_CoinManager : MonoBehaviour
 
     private void OpenTheDoor()
     {
-        _doorPrefab.SetActive(false);
+        _door.SetActive(false);
         Debug.Log("Portone Aperto");
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UI_Victory : MonoBehaviour
 {
+    //SETT
     [SerializeField] private GameObject _victoryPanel;
 
     void Start()
@@ -17,22 +18,30 @@ public class UI_Victory : MonoBehaviour
 
     public void Victory()
     {
-        _victoryPanel.SetActive(true);
-
+        if ( _victoryPanel != null )
+        {
+            _victoryPanel.SetActive( true );
+        }
+        
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
-    private void Retry()
+    public void Retry()
     {
-        Time.timeScale = 1f;
+        ResetGameTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void MainMenu()
+    public void MainMenu()
+    {
+        ResetGameTime();
+        SceneManager.LoadScene(0);
+    }
+
+    private void ResetGameTime()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(0);
     }
 }

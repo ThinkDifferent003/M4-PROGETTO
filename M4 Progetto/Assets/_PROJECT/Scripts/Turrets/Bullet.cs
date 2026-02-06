@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    //SETT
+    [SerializeField] private float _autoDestroy = 4f;
     [SerializeField] private float _speed = 20f;
     [SerializeField] private int _damage = 1;
+    
     
 
     private void OnTriggerEnter(Collider other)
@@ -20,7 +23,14 @@ public class Bullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
-    }
+        else if (other.CompareTag("Environment"))
+        {
+            Destroy(gameObject);
+        }
+    }   
+        
+        
+    
 
     private void Update()
     {

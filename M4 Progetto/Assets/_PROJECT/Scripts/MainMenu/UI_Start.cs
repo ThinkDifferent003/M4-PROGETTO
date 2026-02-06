@@ -5,8 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class UI_Start : MonoBehaviour
 {
+    //SET
+    [SerializeField] private string _sceneName = "Level";
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(_sceneName);
     }
 }

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Elevator : MonoBehaviour
 {
+    //WAYPOINT
     [SerializeField] private Transform _positionA;
     [SerializeField] private Transform _positionB;
+    //STAT
     [SerializeField] private float _speed = 2f;
+    //PRIVATE
     private Vector3 _previousPosition;
     private Vector3 _position;
     private Rigidbody _rbPlayer;

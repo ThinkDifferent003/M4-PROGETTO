@@ -4,44 +4,52 @@ using UnityEngine;
 
 public class PlayerHealthController : MonoBehaviour
 {
+    //STATS
     [SerializeField] private int _maxHealth = 3;
+    //UI REFERENCES
     [SerializeField] private UI_HealthBar _uiHealthBar;
     [SerializeField] private GameObject _gameOverPanel;
-
+    //PRIVATE
     private int _currentHealth;
+    private bool _isDead = false;
     void Start()
     {
-        _currentHealth = _maxHealth;
-        if (_uiHealthBar != null )
+        _currentHealth = 4;
+        if (_uiHealthBar == null)
         {
-            _uiHealthBar.UpdateUI(_currentHealth);
+            _uiHealthBar = FindAnyObjectByType<UI_HealthBar>();
         }
-    }
 
+        UpdateHealthUI();
+
+        if (_gameOverPanel != null)
+        {
+            _gameOverPanel.SetActive(false);
+        }    
+    }   
+        
     public void TakeDamage(int damage)
     {
+        if (_isDead) return;
+
         _currentHealth -= damage;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
 
-        if(_uiHealthBar != null )
-        {
-            _uiHealthBar.UpdateUI(_currentHealth);
-        }
+        UpdateHealthUI();
+
         if(_currentHealth <= 0 )
         {
             Die();
         }
-    }
-
+    }     
+        
     public void AddHP(int amount)
     {
         _currentHealth += amount;
-        if (_currentHealth > _maxHealth)
-        {
-            _currentHealth = _maxHealth;
-        }
+        
+        _currentHealth = Mathf.Clamp(_currentHealth,0, _maxHealth);
 
-        _uiHealthBar.UpdateUI( _currentHealth);
+        UpdateHealthUI();
     }
 
     public void InstantDie()
@@ -49,16 +57,39 @@ public class PlayerHealthController : MonoBehaviour
         TakeDamage(_maxHealth);
     }
 
-    private void Die()
+     private void Die()
     {
-        _gameOverPanel.SetActive(true);
+        _isDead = true;
+
+        if (_gameOverPanel != null)
+        {
+            _gameOverPanel.SetActive(true);
+        }
+
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        Debug.Log("Sei Morto");
     }
 
-    private void Update()
+    private void UpdateHealthUI()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (_uiHealthBar != null )
         {
-            TakeDamage(1);
+            _uiHealthBar.UpdateUI(_currentHealth);
         }
     }
+
+   
+
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.K))
+    //    {
+    //        TakeDamage(1);
+    //    }
+    //}
+
+    
 }

@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Flicker : MonoBehaviour
 {
+    //SETT
     private Light _light;
     [SerializeField] private float _minT = 0.5f;
     [SerializeField] private float _maxT = 5.0f;
-    
-
     
     void Start()
     {
@@ -22,5 +21,5 @@ public class Flicker : MonoBehaviour
         float randomTime = Random.Range(_minT, _maxT);
         Invoke("ChangeState", randomTime);
     }
-    
+        
 }

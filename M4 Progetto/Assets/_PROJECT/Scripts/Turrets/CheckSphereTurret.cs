@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CheckSphereTurret : Turret
 {
+    //SETT
     [SerializeField] private LayerMask _layerPlayer;
     [SerializeField] private float _radius = 10f;
     protected override void CheckPlayer()
@@ -16,10 +17,12 @@ public class CheckSphereTurret : Turret
         if (_playerTransform != null)
         {
             Vector3 direction = _playerTransform.position - _rotateHead.position;
-            
 
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            _rotateHead.rotation = Quaternion.Slerp(_rotateHead.rotation, rotation, Time.deltaTime * _rotationSpeed);
+            if (direction != Vector3.zero)
+            {
+                Quaternion rotation = Quaternion.LookRotation(direction);
+                _rotateHead.rotation = Quaternion.Slerp(_rotateHead.rotation, rotation, Time.deltaTime * _rotationSpeed);
+            }
 
         }
     }

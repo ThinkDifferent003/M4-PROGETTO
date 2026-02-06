@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class MortalTurret : Turret
 {
+    //SHOOT FORCE
     [SerializeField] private float _forceUp = 10f;
     [SerializeField] private float _launch = 5f;
+    //SETT
     [SerializeField] private float _triggerRadius = 5f;
     [SerializeField] private Transform _point;
 
     protected override void CheckPlayer()
     {
-        if (_point != null)
+        if (_point != null && _playerTransform != null)
         {
             float distance = Vector3.Distance(_playerTransform.position, _point.position);
             _isPlayerZone = distance < _triggerRadius;
@@ -20,6 +22,8 @@ public class MortalTurret : Turret
 
     protected override void Aim()
     {
+        if (_playerTransform ==  null) return;
+       
         Vector3 direction = _playerTransform.position - transform.position;
         direction.y = 0;
 
@@ -27,13 +31,16 @@ public class MortalTurret : Turret
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             _rotateHead.rotation = Quaternion.Slerp(_rotateHead.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
-
         }
-    }
-
+     }    
+   
     protected override void Shoot()
     {
+        if (_bulletPrefab ==  null) return;
+        
         GameObject shell = Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
+       
+
         Rigidbody rb = shell.GetComponent<Rigidbody>();
 
         if (rb != null)
@@ -41,6 +48,11 @@ public class MortalTurret : Turret
             Vector3 launchDir = (_firePoint.forward * _launch) + (Vector3.up * _forceUp);
             rb.AddForce(launchDir , ForceMode.Impulse);
         }
+    }
+   
+    protected override void Routine()
+    {
+        
     }
 
     private void OnDrawGizmos()
@@ -51,4 +63,5 @@ public class MortalTurret : Turret
             Gizmos.DrawWireSphere(_point.position, _triggerRadius);
         }
     }
+    
 }

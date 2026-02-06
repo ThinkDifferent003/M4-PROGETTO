@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class Win : MonoBehaviour
 {
+    private UI_Timer _uiTimer;
+    private UI_Victory _uiVictory;
+
+    private void Start()
+    {
+        _uiTimer = FindAnyObjectByType<UI_Timer>();
+        _uiVictory = FindAnyObjectByType<UI_Victory>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            FindAnyObjectByType<UI_Timer>().BlockTimer();
+            _uiTimer.BlockTimer();
             Debug.Log("Livello Completato");
 
-            FindAnyObjectByType<UI_Victory>().Victory();
+            _uiVictory.Victory();
         }
     }
 }

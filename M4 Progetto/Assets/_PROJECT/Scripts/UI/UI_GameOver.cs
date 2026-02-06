@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UI_GameOver : MonoBehaviour
 {
+    //SETT
     [SerializeField] private GameObject _gameOver;
 
     private void Start()
@@ -17,7 +18,7 @@ public class UI_GameOver : MonoBehaviour
 
     public void GameOver()
     {
-        if ( _gameOver != null )
+        if ( _gameOver != null)
         {
             _gameOver.SetActive(true);
         }
@@ -28,25 +29,20 @@ public class UI_GameOver : MonoBehaviour
 
     public void Retry()
     {
-        Time.timeScale = 1f;
+        ResetGameTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu()
     {
-        Time.timeScale = 1f;
+        ResetGameTime();
         SceneManager.LoadScene(0);
     }
 
-    public void Update()
+    private void ResetGameTime()
     {
-        if ( _gameOver != null && _gameOver.activeSelf)
-        {
-            if (Cursor.lockState != CursorLockMode.None)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-        }
+        Time.timeScale = 1f;
     }
+
+    
 }
