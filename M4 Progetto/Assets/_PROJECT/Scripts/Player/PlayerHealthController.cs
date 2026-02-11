@@ -9,6 +9,8 @@ public class PlayerHealthController : MonoBehaviour
     //UI REFERENCES
     [SerializeField] private UI_HealthBar _uiHealthBar;
     [SerializeField] private GameObject _gameOverPanel;
+    //Audio
+    [SerializeField] private AudioSource _music;
     //PRIVATE
     private int _currentHealth;
     private bool _isDead = false;
@@ -64,6 +66,11 @@ public class PlayerHealthController : MonoBehaviour
         if (_gameOverPanel != null)
         {
             _gameOverPanel.SetActive(true);
+        }
+
+        if (_music != null)
+        {
+            _music.Stop();
         }
 
         Time.timeScale = 0f;

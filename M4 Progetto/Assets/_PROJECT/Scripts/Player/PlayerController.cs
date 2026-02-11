@@ -64,6 +64,11 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDirection = forward * _movement.y + right * _movement.x;
 
+        if (moveDirection.magnitude > 0.1f)
+        {
+            moveDirection.Normalize();
+        }
+
 
         _rb.MovePosition(_rb.position + moveDirection * (_speed * Time.fixedDeltaTime));
     }
