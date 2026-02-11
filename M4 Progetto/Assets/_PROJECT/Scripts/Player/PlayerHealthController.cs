@@ -87,16 +87,10 @@ public class PlayerHealthController : MonoBehaviour
             _uiHealthBar.UpdateUI(_currentHealth);
         }
     }
-
+}
    
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.K))
-    //    {
-    //        TakeDamage(1);
-    //    }
-    //}
+    
 
     
-}
+
